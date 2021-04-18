@@ -1,1 +1,11 @@
 # USW-bachelor-2021
+This is the code i wrote for my bachelor in computer forensic.
+!!The code works, but the program is not 100% complete with all functionalities!!
+!!BUGS might occur!!
+
+The server needs the following additional libraries:
+- flask
+- sqlalchemy
+
+The client needs the following additional libraries:
+- GPUtil
