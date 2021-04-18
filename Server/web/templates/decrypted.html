@@ -1,0 +1,42 @@
+{%extends 'base.html' %}
+
+{% block head %}
+<h1>Decrypted</h1>
+
+{% endblock %}
+
+{% block body %}
+
+<h2>Overview of passwords already solved</h2>
+<table class="table table-striped table-light">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Hash</th>
+        <th scope="col">Hash type</th>
+        <th scope="col">password</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in decryptions %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ i.hash_code }}</td>
+          {% for a in algos %}
+            {% if a.mode == i.hash_type %}
+            <td>{{ a.hash_name }}</td>
+            {% endif %}
+        {% endfor %}
+        
+        <td>{{ i.password_plain }}</td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+
+{% endblock %}

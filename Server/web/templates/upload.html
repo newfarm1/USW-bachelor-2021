@@ -1,0 +1,20 @@
+{%extends 'base.html' %}
+
+{% block head %}
+
+<h1>Upload</h1>
+{% endblock %}
+
+{% block body %}
+
+<form class="d-grid gap-3" action = "/upload" method = "POST" 
+      enctype = "multipart/form-data">
+      <div class="col-sm-5">
+            <label class="form-label" for="customFile">Upload your dictionary here</label>
+            <input type="file" class="form-control" id="customFile" name = "file" />
+      </div>
+      <div class="col-sm-5">
+            <button type="submit" class="btn btn-primary">Upload!</button>
+      </div>
+</form>   
+{% endblock %}

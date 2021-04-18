@@ -1,0 +1,100 @@
+{%extends 'base.html' %}
+
+{% block head %}
+<h1>Decrypt</h1>
+{% endblock %}
+
+{% block body %}
+<p>Choose variable and add hash value</p>
+<form class="d-grid gap-3" action="/decrypt" method="POST">
+  <div>
+    <label for="decrypt_type" class="col-sm-2 col-form-label">Decrypt type</label>
+    <div class="form-check form-check-inline" id="decrypt_type">
+      <input class="form-check-input"  checked type="radio" name="decrypt_type" id="inlineRadio2"
+        value="brute" onclick="radioChange('brute');">
+      <label class="form-check-label" for="inlineRadio2">Brute</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="decrypt_type" id="inlineRadio1" value="mask" onclick="radioChange('mask');">
+      <label class="form-check-label" for="inlineRadio1">Mask</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="decrypt_type" id="inlineRadio3" value="dict" onclick="radioChange('dict');">
+      <label class="form-check-label" for="inlineRadio3">Dict</label>
+    </div>
+  </div>
+    <div class="form-group row">
+      <label for="hash_input" class="col-sm-2 col-form-label">Hash value</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="hash_input" name="hash_input" placeholder="Hash value">
+      </div>
+    </div>
+      <div class="form-group row">
+        <label for="hash_type" class="col-sm-2 col-form-label">Hash type</label>
+        <div class="col-sm-10">
+          <select name="algo" class="form-control" id="hash_type">
+            {% for i in mode %}
+              <option value="{{ i.mode }}">{{ i.hash_name }}</option>
+            {% endfor  %}
+          </select>
+        </div>
+      </div>
+
+      <div class="" id="brute_toggle">
+        <label for="decrypt_type" class="col-sm-2 col-form-label">Length</label>
+        <div class="form-check form-check-inline" id="costum-leny">
+          <input class="form-check-input" type="radio" name="costum-length" id="costum-leny" value="yes" onclick="radioChange2('open');">
+          <label class="form-check-label" for="costum-leny">Costum length</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="costum-length" id="costum-lenn" checked value="no" onclick="radioChange2('close');">
+          <label class="form-check-label" for="costum-lenn">Default length</label>
+        </div>
+      </div>
+
+      <div class="form-group form-group-inline" id="costum_length">
+        <div class="row g-3">
+          <label for="lenght" class="col-sm-2 col-form-label">Lenght input</label>
+          <div class="col-sm-5" id="lenght">
+            <input type="number" name="start" id="len1" class="form-control" placeholder="Default lenght start is 8 characters" disabled>
+          </div>
+          <div class="col-sm-5">
+            <input type="number" name="stop" id="len2" class="form-control" placeholder="Default lenght stop is 10 characters" disabled>
+          </div>
+    
+
+      
+      </div>
+    </div>
+      <div class="hide" id="mask_toggle">
+        <div class="form-group row">
+          <label for="mask" class="col-sm-2 col-form-label ">Mask</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="mask" name="mask_input" placeholder="Mask">
+          </div>
+        </div>
+      </div>
+
+    <div class=" hide" id="dict">
+      <div class="form-group row"> 
+        <label for="hash_type" class="col-sm-2 col-form-label">Stored files</label>
+        <div class="col-sm-10">
+          <select name="selected_dict" class="form-control" size="3" id="hash_type">
+            {% for i in files %}
+                <option value="{{ i.name }}" >{{ i.name }}</option>
+            {% endfor  %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Start!</button>
+      </div>
+    </div>
+  
+  </form>
+
+  
+{% endblock %}

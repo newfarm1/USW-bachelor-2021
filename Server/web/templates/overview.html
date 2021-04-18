@@ -1,0 +1,92 @@
+{%extends 'base.html' %}
+
+{% block head %}
+<h1>Queue overview</h1>
+
+{% endblock %}
+
+{% block body %}
+<h3>Hashes in queue for decryption</h3>
+</br>
+<p>When doing bruteforce attack setting 1 indicates the start lenght of the password decryption and setting 2 indicates the max lenght to test</p>
+<p>When doing a dictionaty attack setting 1 indicates the number of words in the resized dictionaries for distributing to nodes</p>
+<table class="table table-striped table-light">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Decrypt mode</th>
+        <th scope="col">Hash type</th>
+        <th scope="col">Hash</th>
+        <th scope="col">Ongoing</th>
+        <th scope="col">Setting 1</th>
+        <th scope="col">Setting 2</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in task_queue %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>
+        {% if i.decrypt_type == 'brute' %}
+          Bruteforce
+        {% elif i.decrypt_type == 'mask' %}
+          Mask
+        {% elif i.decrypt_type == 'dict' %}
+          Dictionary
+        </td>
+        {% endif %}
+        {% for a in algos %}
+            {% if a.mode == i.algo %}
+            <td>{{ a.hash_name }}</td>
+            {% endif %}
+        {% endfor %}
+        <td>{{ i.hash_code }}</td>
+        <td>{{ i.ongoing }}</td>
+        <td>{{ i.setting1 }}</td>
+        <td>{{ i.setting2 }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<table class="table table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Decrypt mode</th>
+      <th scope="col">Hash type</th>
+      <th scope="col">Hash</th>
+      <th scope="col">Job</th>
+      <th scope="col">Worker</th>
+      
+      
+    </tr>
+  </thead>
+</br>
+  <h4>Remaining worloads for current job</h4>
+  <tbody>
+  {% for i in ongoing_queue %}
+  <tr>
+      <th scope="row">{{ i.task_nr}}</th>
+      <td>
+        {% if i.attack_type == 'brute' %}
+          Bruteforce
+        {% elif i.attack_type == 'mask' %}
+          Mask
+          {% elif i.attack_type == 'dict' %}
+        Dictionary
+        </td>
+        {% endif %}
+      {% for a in algos %}
+          {% if a.mode == i.algo %}
+          <td>{{ a.hash_name }}</td>
+          {% endif %}
+      {% endfor %}
+      <td>{{ i.hash_code }}</td>
+      <td>{{ i.job }}</td>
+      <td>{{ i.worker }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
