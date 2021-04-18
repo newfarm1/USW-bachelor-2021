@@ -9,3 +9,5 @@ The server needs the following additional libraries:
 
 The client needs the following additional libraries:
 - GPUtil
+
+To use the client on linux change the "hashcat.exe" to "hashcat" in line 97
